@@ -9,28 +9,47 @@ import XCTest
 @testable import CarCustomiser
 
 final class CarCustomiserTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testNewCarGivesANewCarWithAllAttributes() {
+        // arrange
+        // act
+        let car = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
+        
+        // assert
+        XCTAssertEqual(car.make, "Porsche")
+        XCTAssertEqual(car.model, "Taycan")
+        XCTAssertEqual(car.topSpeed, 130)
+        XCTAssertEqual(car.acceleration, 7.9)
+        XCTAssertEqual(car.handling, 7)
     }
+    
+//    func testDisplayStatsMethodCanBeCalledOnInstanceOfCar(){
+//        //arrange
+//        let sut = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
+//        let expected = "Porsche"
+//        
+//        // act
+//        let actual = sut.displayStats()
+//        
+//        //assert
+//        XCTAssertEqual(actual, expected)
+//    }
+    
+    func testDisplayStatsMethodReturnsValidTuple() {
+        // arrange
+        let sut = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
+        let expected = (make: "Porsche", model:"Taycan", topSpeed:130, acceleration:7.9, handling: 7)
+        
+        // act
+        let actual = sut.displayStats()
+        
+        // assert
+        XCTAssertEqual(actual.make, expected.make )
+        XCTAssertEqual(actual.model, expected.model )
+        XCTAssertEqual(actual.topSpeed, expected.topSpeed )
+        XCTAssertEqual(actual.acceleration, expected.acceleration )
+        XCTAssertEqual(actual.handling, expected.handling )
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
+    
 }
