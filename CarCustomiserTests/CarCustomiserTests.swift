@@ -35,20 +35,22 @@ final class CarCustomiserTests: XCTestCase {
 //        XCTAssertEqual(actual, expected)
 //    }
     
-    func testDisplayStatsMethodReturnsValidTuple() {
+    func testDisplayStatsMethodReturnsValidMultiLineString() {
         // arrange
         let sut = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
-        let expected = (make: "Porsche", model:"Taycan", topSpeed:130, acceleration:7.9, handling: 7)
+        let expected = """
+        Make: Porsche
+        Model: Taycan
+        Top speed: 130
+        Acceleration (0-60): 7.9
+        Handling: 7
+        """
         
         // act
         let actual = sut.displayStats()
         
         // assert
-        XCTAssertEqual(actual.make, expected.make )
-        XCTAssertEqual(actual.model, expected.model )
-        XCTAssertEqual(actual.topSpeed, expected.topSpeed )
-        XCTAssertEqual(actual.acceleration, expected.acceleration )
-        XCTAssertEqual(actual.handling, expected.handling )
+        XCTAssertEqual(expected, actual)
 
     }
     
