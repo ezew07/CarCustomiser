@@ -167,6 +167,7 @@ struct ContentView: View {
         turboChargerPackage = false
         gearRatioPackage = false
         remainingFunds = 1000
+        starterCars = StarterCars()
     }
 }
 
