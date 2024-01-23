@@ -22,55 +22,33 @@ struct ContentView: View {
     @State private var gearRatioPackage = false
     @State private var remainingFunds = 1000
     @State private var shouldToggleStayOn = false
+    @State private var remainingTime = 30
+
     
     var exhuastPackageToggle: Bool {
-        if exhaustPackage == true{
-            return true
-        }
-        if remainingFunds >= 300{
-            return true
-        }
-        else{
-            return false
-        }
+        return exhaustPackage ? true : remainingFunds >= 300 ? true : false
     }
     var tyresPackageToggle: Bool {
-        if tyresPackage == true{
-            return true
-        }
-        if remainingFunds >= 200{
-            return true
-        }
-        else{
-            return false
-        }
+        return tyresPackage ? true: remainingFunds >= 200 ? true : false
     }
     var turboChargePackageToggle: Bool {
-        if turboChargerPackage == true{
-            return true
-        }
-        if remainingFunds >= 500{
-            return true
-        }
-        else{
-            return false
-        }
+        return turboChargerPackage ? true : remainingFunds >= 500 ? true : false
     }
     var gearRatioPackageToggle: Bool {
-        if gearRatioPackage == true{
-            return true
-        }
-        if remainingFunds >= 1000{
-            return true
-        }
-        else{
-            return false
-        }
+        return gearRatioPackage ? true : remainingFunds >= 1000 ? true : false
     }
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
 
     var body: some View {
-        
+        Text("\(remainingTime)")
+            .onReceive(timer, perform: { _ in
+                if remainingTime > 0{
+                    remainingTime -= 1
+                }
+            })
+            .foregroundColor(.red)
         let exhaustPackageBinding = Binding<Bool>(
             get: {self.exhaustPackage},
             set: { newValue in
@@ -142,16 +120,27 @@ struct ContentView: View {
                         selectedCar += 1
                         resetDisplay()
                     })
+                    .disabled({
+                        return remainingTime == 0 ? true : false
+                    }())
                 }
                 Section{
                     Toggle("Exhaust package (Cost:300)", isOn: exhaustPackageBinding)
-                        .disabled(!exhuastPackageToggle)
+                        .disabled({
+                            return remainingTime == 0 ? true : !exhuastPackageToggle
+                        }())
                     Toggle("Tyres package (Cost:200)", isOn: tyresPackageBinding)
-                        .disabled(!tyresPackageToggle)
+                        .disabled({
+                            return remainingTime == 0 ? true : !tyresPackageToggle
+                        }())
                     Toggle("Turbocharger package (Cost:500)", isOn: turboChargerPackageBinding)
-                        .disabled(!turboChargePackageToggle)
+                        .disabled({
+                            return remainingTime == 0 ? true : !turboChargePackageToggle
+                        }())
                     Toggle("Gear ratio package (Cost:1000)", isOn: gearRatioPackageBinding)
-                        .disabled(!gearRatioPackageToggle)
+                        .disabled({
+                            return remainingTime == 0 ? true : !gearRatioPackageToggle
+                        }())
                 }
             }
             Text("Remaining funds: \(remainingFunds)")

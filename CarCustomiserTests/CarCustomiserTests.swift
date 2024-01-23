@@ -13,7 +13,7 @@ final class CarCustomiserTests: XCTestCase {
     func testNewCarGivesANewCarWithAllAttributes() {
         // arrange
         // act
-        let car = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
+        let car = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7, torque: 12)
         
         // assert
         XCTAssertEqual(car.make, "Porsche")
@@ -37,7 +37,7 @@ final class CarCustomiserTests: XCTestCase {
     
     func testDisplayStatsMethodReturnsValidMultiLineString() {
         // arrange
-        let sut = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7)
+        let sut = Car(make:"Porsche", model:"Taycan", topSpeed:130, acceleration: 7.9, handling: 7, torque: 12)
         let expected = """
         Make: Porsche
         Model: Taycan

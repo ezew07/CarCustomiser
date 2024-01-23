@@ -22,16 +22,6 @@ final class CarCustomiserUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testWehnBoughtGearRatioPackageAllOtherPackagesAreDisabled() throws {
-        // arrange
-        let app = XCUIApplication()
-        app.launch()
-
-        // act
-        
-        
-        // assert
-    }
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
